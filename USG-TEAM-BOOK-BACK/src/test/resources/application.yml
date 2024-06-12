@@ -1,0 +1,42 @@
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  profiles:
+    active: test
+
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+
+  cloud:
+    gcp:
+      storage:
+        credentials:
+          location: mockLocation
+        project-id: mockProjectId
+        bucket: mockBucket
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: book
+
+jwt:
+  secret:
+    key: "ThisIsMockSecretKeyForTestingApiControllersInTestPackage"
+
+open:
+  library:
+    key: "mockLibraryKey"

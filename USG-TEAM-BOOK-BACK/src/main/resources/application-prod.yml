@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: ${DATABASE}
+    username: ${USERNAME}
+    password: ${PASSWORD}
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+server:
+  port: 8080

@@ -1,0 +1,25 @@
+spring:
+  data:
+    redis:
+      host: ${REDIS}
+      port: 6379
+  profiles:
+    active: ${ENVIRONMENT}
+#    active: local
+
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_HOST}
+      group-id: ${KAFKA_GROUP}
+
+  cloud:
+    gcp:
+      storage:
+        credentials:
+          location: file:${JSON_PATH}${GCS_KEY}.json
+        project-id: ${GCS_ID}
+        bucket: ${BUCKET_NAME}
+
+open:
+  library:
+    key: ${LIBRARY_KEY}

@@ -1,0 +1,85 @@
+
+server:
+  port: 8080
+
+---
+spring:
+  config:
+    activate:
+      on-profile: default
+
+  cloud:
+    gateway:
+      #<<< API Gateway / Routes
+      routes:
+        - id: Member
+          uri: http://172.17.0.1:8082
+          predicates:
+            - Path=/members/**,
+        - id: Book
+          uri: http://172.17.0.1:8080
+          predicates:
+            - Path=/api/book, /api/book/**
+          filters:
+            - JwtVerifyFilter
+        - id: Chat
+          uri: http://172.17.0.1:8081
+          predicates:
+            - Path=/chat, /topic/chat, /api/messages, /api/chat-rooms
+          filters:
+            - JwtVerifyFilter
+      #>>> API Gateway / Routes
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+---
+
+# spring:
+#   config:
+#     activate:
+#       on-profile: docker
+
+#   cloud:
+#     gateway:
+#       routes:
+#         - id: Member
+#           uri: http://member:8080
+#           predicates:
+#             - Path=/members/**,
+#         - id: Book
+#           uri: http://book:8080
+#           predicates:
+#             - Path=/bookLists/**, /books/**,
+#         - id: Chat
+#           uri: http://chat:8080
+#           predicates:
+#             - Path=/chats/**,
+#         - id: Board
+#           uri: http://board:8080
+#           predicates:
+#             - Path=/boards/**,
+#         - id: mypage
+#           uri: http://mypage:8080
+#           predicates:
+#             - Path=/mypages/**
+#       globalcors:
+#         corsConfigurations:
+#           '[/**]':
+#             allowedOrigins:
+#               - "*"
+#             allowedMethods:
+#               - "*"
+#             allowedHeaders:
+#               - "*"
+#             allowCredentials: true
+
+# server:
+#   port: 8080
